@@ -17,3 +17,5 @@ Option C: 카메라 기반
 
 etc
 streamlit run dashboard.py
+
+카메라 -> 라즈베리파이5 + 웹캠 / 기기 만들어야함
