@@ -33,6 +33,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav .nav-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
 
         nav .logo {
@@ -56,6 +63,36 @@
 
         nav a:hover {
             color: #2563eb;
+        }
+
+        /* 언어 전환 버튼 */
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .language-switcher button {
+            background: none;
+            border: none;
+            color: #666;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .language-switcher button:hover {
+            color: #2563eb;
+        }
+
+        .language-switcher button.active {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .language-switcher .separator {
+            color: #ccc;
         }
 
         /* 히어로 섹션 */
@@ -294,56 +331,63 @@
     <nav>
         <div class="container">
             <div class="logo">🏠 SmartCare</div>
-            <ul>
-                <li><a href="#home">홈</a></li>
-                <li><a href="#solutions">솔루션</a></li>
-                <li><a href="#features">기술</a></li>
-                <li><a href="#contact">문의</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul>
+                    <li><a href="#home" data-ko="홈" data-en="Home">홈</a></li>
+                    <li><a href="#solutions" data-ko="솔루션" data-en="Solutions">솔루션</a></li>
+                    <li><a href="#features" data-ko="기술" data-en="Features">기술</a></li>
+                    <li><a href="#contact" data-ko="문의" data-en="Contact">문의</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button onclick="switchLanguage('ko')" id="lang-ko" class="active">KO</button>
+                    <span class="separator">|</span>
+                    <button onclick="switchLanguage('en')" id="lang-en">EN</button>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- 히어로 섹션 -->
     <section id="home" class="hero">
-        <h1>AI가 지키는 스마트홈</h1>
-        <p>카메라 하나로 집안 환경을 자동 관리하고, 소중한 가족의 안전을 지킵니다</p>
-        <a href="#contact" class="cta-button">베타 테스터 신청하기</a>
+        <h1 data-ko="AI가 지키는 스마트홈" data-en="AI-Powered Smart Home">AI가 지키는 스마트홈</h1>
+        <p data-ko="카메라 하나로 집안 환경을 자동 관리하고, 소중한 가족의 안전을 지킵니다" data-en="Automatically manage your home environment and protect your loved ones with a single camera">카메라 하나로 집안 환경을 자동 관리하고, 소중한 가족의 안전을 지킵니다</p>
+        <a href="#contact" class="cta-button" data-ko="베타 테스터 신청하기" data-en="Apply for Beta Testing">베타 테스터 신청하기</a>
     </section>
 
     <!-- 솔루션 섹션 -->
     <section id="solutions">
-        <h2>핵심 솔루션</h2>
+        <h2 data-ko="핵심 솔루션" data-en="Core Solutions">핵심 솔루션</h2>
         <div class="solutions-grid">
             <div class="solution-card">
                 <div class="icon">🤖</div>
-                <h3>스마트홈 자동화</h3>
-                <p>카메라 비전 AI가 집안 상태를 실시간으로 분석하여 자동으로 제어합니다</p>
+                <h3 data-ko="스마트홈 자동화" data-en="Smart Home Automation">스마트홈 자동화</h3>
+                <p data-ko="카메라 비전 AI가 집안 상태를 실시간으로 분석하여 자동으로 제어합니다" data-en="Vision AI analyzes your home in real-time and controls devices automatically">카메라 비전 AI가 집안 상태를 실시간으로 분석하여 자동으로 제어합니다</p>
                 <ul>
-                    <li>바닥 물체 감지 → 로봇청소기 자동 작동</li>
-                    <li>창문 개폐 확인 → 냉난방 최적 제어</li>
-                    <li>다양한 브랜드 기기 통합 관리</li>
+                    <li data-ko="바닥 물체 감지 → 로봇청소기 자동 작동" data-en="Floor object detection → Auto vacuum cleaning">바닥 물체 감지 → 로봇청소기 자동 작동</li>
+                    <li data-ko="창문 개폐 확인 → 냉난방 최적 제어" data-en="Window status check → Optimal HVAC control">창문 개폐 확인 → 냉난방 최적 제어</li>
+                    <li data-ko="다양한 브랜드 기기 통합 관리" data-en="Multi-brand device integration">다양한 브랜드 기기 통합 관리</li>
                 </ul>
             </div>
 
             <div class="solution-card">
                 <div class="icon">👴</div>
-                <h3>시니어 케어</h3>
-                <p>독거 어르신과 요양 시설의 안전을 24시간 지켜드립니다</p>
+                <h3 data-ko="시니어 케어" data-en="Senior Care">시니어 케어</h3>
+                <p data-ko="독거 어르신과 요양 시설의 안전을 24시간 지켜드립니다" data-en="24/7 safety monitoring for elderly living alone and care facilities">독거 어르신과 요양 시설의 안전을 24시간 지켜드립니다</p>
                 <ul>
-                    <li>낙상 및 이상 행동 자동 감지</li>
-                    <li>화장실 출입 패턴 모니터링</li>
-                    <li>긴급 상황 시 자동 신고 시스템</li>
+                    <li data-ko="낙상 및 이상 행동 자동 감지" data-en="Automatic fall and abnormal behavior detection">낙상 및 이상 행동 자동 감지</li>
+                    <li data-ko="화장실 출입 패턴 모니터링" data-en="Bathroom visit pattern monitoring">화장실 출입 패턴 모니터링</li>
+                    <li data-ko="긴급 상황 시 자동 신고 시스템" data-en="Automatic emergency alert system">긴급 상황 시 자동 신고 시스템</li>
                 </ul>
             </div>
 
             <div class="solution-card">
                 <div class="icon">🔗</div>
-                <h3>통합 관제</h3>
-                <p>서로 다른 브랜드의 IoT 기기를 하나로 연결합니다</p>
+                <h3 data-ko="통합 관제" data-en="Integrated Control">통합 관제</h3>
+                <p data-ko="서로 다른 브랜드의 IoT 기기를 하나로 연결합니다" data-en="Connect IoT devices from different brands into one platform">서로 다른 브랜드의 IoT 기기를 하나로 연결합니다</p>
                 <ul>
-                    <li>LG, 삼성, 샤오미 등 브랜드 통합</li>
-                    <li>외부에서도 실시간 모니터링</li>
-                    <li>자동화 시나리오 직접 설정</li>
+                    <li data-ko="LG, 삼성, 샤오미 등 브랜드 통합" data-en="Integrate LG, Samsung, Xiaomi and more">LG, 삼성, 샤오미 등 브랜드 통합</li>
+                    <li data-ko="외부에서도 실시간 모니터링" data-en="Real-time remote monitoring">외부에서도 실시간 모니터링</li>
+                    <li data-ko="자동화 시나리오 직접 설정" data-en="Customize automation scenarios">자동화 시나리오 직접 설정</li>
                 </ul>
             </div>
         </div>
@@ -351,88 +395,123 @@
 
     <!-- 기술 섹션 -->
     <section id="features" class="features">
-        <h2>핵심 기술</h2>
+        <h2 data-ko="핵심 기술" data-en="Core Technologies">핵심 기술</h2>
         <div class="feature-list">
             <div class="feature-item">
-                <h4>🎯 객체 인식 AI</h4>
-                <p>딥러닝 기반 실시간 영상 분석으로 바닥 물체, 인물 행동, 공간 상태를 정확하게 파악합니다</p>
+                <h4 data-ko="🎯 객체 인식 AI" data-en="🎯 Object Recognition AI">🎯 객체 인식 AI</h4>
+                <p data-ko="딥러닝 기반 실시간 영상 분석으로 바닥 물체, 인물 행동, 공간 상태를 정확하게 파악합니다" data-en="Deep learning-based real-time video analysis accurately identifies floor objects, human behavior, and spatial conditions">딥러닝 기반 실시간 영상 분석으로 바닥 물체, 인물 행동, 공간 상태를 정확하게 파악합니다</p>
             </div>
 
             <div class="feature-item">
-                <h4>🔐 프라이버시 보호</h4>
-                <p>모든 영상 처리는 로컬에서 진행되며, 필요한 정보만 암호화하여 저장합니다</p>
+                <h4 data-ko="🔐 프라이버시 보호" data-en="🔐 Privacy Protection">🔐 프라이버시 보호</h4>
+                <p data-ko="모든 영상 처리는 로컬에서 진행되며, 필요한 정보만 암호화하여 저장합니다" data-en="All video processing is done locally, and only necessary information is encrypted and stored">모든 영상 처리는 로컬에서 진행되며, 필요한 정보만 암호화하여 저장합니다</p>
             </div>
 
             <div class="feature-item">
-                <h4>⚡ 실시간 자동화</h4>
-                <p>상황 감지부터 기기 제어까지 5초 이내 처리로 즉각적인 대응이 가능합니다</p>
+                <h4 data-ko="⚡ 실시간 자동화" data-en="⚡ Real-time Automation">⚡ 실시간 자동화</h4>
+                <p data-ko="상황 감지부터 기기 제어까지 5초 이내 처리로 즉각적인 대응이 가능합니다" data-en="Instant response with processing from situation detection to device control within 5 seconds">상황 감지부터 기기 제어까지 5초 이내 처리로 즉각적인 대응이 가능합니다</p>
             </div>
 
             <div class="feature-item">
-                <h4>🌐 멀티 브랜드 지원</h4>
-                <p>IR 블라스터, Matter 프로토콜 등 다양한 방식으로 모든 브랜드 기기를 제어합니다</p>
+                <h4 data-ko="🌐 멀티 브랜드 지원" data-en="🌐 Multi-brand Support">🌐 멀티 브랜드 지원</h4>
+                <p data-ko="IR 블라스터, Matter 프로토콜 등 다양한 방식으로 모든 브랜드 기기를 제어합니다" data-en="Control all brand devices through various methods including IR blaster and Matter protocol">IR 블라스터, Matter 프로토콜 등 다양한 방식으로 모든 브랜드 기기를 제어합니다</p>
             </div>
 
             <div class="feature-item">
-                <h4>📱 모바일 연동</h4>
-                <p>스마트폰 카메라를 센서로 활용하여 추가 장비 없이 시작할 수 있습니다</p>
+                <h4 data-ko="📱 모바일 연동" data-en="📱 Mobile Integration">📱 모바일 연동</h4>
+                <p data-ko="스마트폰 카메라를 센서로 활용하여 추가 장비 없이 시작할 수 있습니다" data-en="Get started without additional equipment by using your smartphone camera as a sensor">스마트폰 카메라를 센서로 활용하여 추가 장비 없이 시작할 수 있습니다</p>
             </div>
 
             <div class="feature-item">
-                <h4>🚨 긴급 알림</h4>
-                <p>위험 상황 감지 시 보호자, 관리자, 응급기관에 즉시 알림을 전송합니다</p>
+                <h4 data-ko="🚨 긴급 알림" data-en="🚨 Emergency Alerts">🚨 긴급 알림</h4>
+                <p data-ko="위험 상황 감지 시 보호자, 관리자, 응급기관에 즉시 알림을 전송합니다" data-en="Instantly send alerts to guardians, managers, and emergency services when dangerous situations are detected">위험 상황 감지 시 보호자, 관리자, 응급기관에 즉시 알림을 전송합니다</p>
             </div>
         </div>
     </section>
 
     <!-- Contact 섹션 -->
     <section id="contact" class="contact">
-        <h2>베타 테스터 신청</h2>
-        <p>첫 출시 혜택과 함께 SmartCare를 가장 먼저 경험해보세요</p>
-        
+        <h2 data-ko="베타 테스터 신청" data-en="Apply for Beta Testing">베타 테스터 신청</h2>
+        <p data-ko="첫 출시 혜택과 함께 SmartCare를 가장 먼저 경험해보세요" data-en="Be the first to experience SmartCare with exclusive early-bird benefits">첫 출시 혜택과 함께 SmartCare를 가장 먼저 경험해보세요</p>
+
         <form class="contact-form" onsubmit="handleSubmit(event)">
             <div class="form-group">
-                <label for="name">이름 *</label>
+                <label for="name" data-ko="이름 *" data-en="Name *">이름 *</label>
                 <input type="text" id="name" name="name" required>
             </div>
 
             <div class="form-group">
-                <label for="email">이메일 *</label>
+                <label for="email" data-ko="이메일 *" data-en="Email *">이메일 *</label>
                 <input type="email" id="email" name="email" required>
             </div>
 
             <div class="form-group">
-                <label for="phone">연락처</label>
+                <label for="phone" data-ko="연락처" data-en="Phone">연락처</label>
                 <input type="tel" id="phone" name="phone">
             </div>
 
             <div class="form-group">
-                <label for="interest">관심 솔루션 *</label>
+                <label for="interest" data-ko="관심 솔루션 *" data-en="Interest *">관심 솔루션 *</label>
                 <select id="interest" name="interest" required>
-                    <option value="">선택해주세요</option>
-                    <option value="smart-home">스마트홈 자동화</option>
-                    <option value="senior-care">시니어 케어</option>
-                    <option value="business">기업/시설용</option>
-                    <option value="all">전체</option>
+                    <option value="" data-ko="선택해주세요" data-en="Please select">선택해주세요</option>
+                    <option value="smart-home" data-ko="스마트홈 자동화" data-en="Smart Home Automation">스마트홈 자동화</option>
+                    <option value="senior-care" data-ko="시니어 케어" data-en="Senior Care">시니어 케어</option>
+                    <option value="business" data-ko="기업/시설용" data-en="Business/Facility">기업/시설용</option>
+                    <option value="all" data-ko="전체" data-en="All">전체</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="message">문의 사항</label>
-                <textarea id="message" name="message" placeholder="궁금한 점이나 특별히 필요한 기능을 알려주세요"></textarea>
+                <label for="message" data-ko="문의 사항" data-en="Message">문의 사항</label>
+                <textarea id="message" name="message" data-ko-placeholder="궁금한 점이나 특별히 필요한 기능을 알려주세요" data-en-placeholder="Tell us any questions or features you need" placeholder="궁금한 점이나 특별히 필요한 기능을 알려주세요"></textarea>
             </div>
 
-            <button type="submit" class="submit-button">신청하기</button>
+            <button type="submit" class="submit-button" data-ko="신청하기" data-en="Submit">신청하기</button>
         </form>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 SmartCare. All rights reserved.</p>
-        <p>AI 기반 스마트홈 솔루션 | 문의: contact@smartcare.com</p>
+        <p data-ko="AI 기반 스마트홈 솔루션 | 문의: contact@smartcare.com" data-en="AI-Powered Smart Home Solution | Contact: contact@smartcare.com">AI 기반 스마트홈 솔루션 | 문의: contact@smartcare.com</p>
     </footer>
 
     <script>
+        // 언어 전환 함수
+        let currentLang = localStorage.getItem('language') || 'ko';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+
+            // 버튼 활성화 상태 변경
+            document.getElementById('lang-ko').classList.toggle('active', lang === 'ko');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+
+            // HTML lang 속성 변경
+            document.documentElement.lang = lang;
+
+            // 모든 data-ko, data-en 속성을 가진 요소 찾기
+            document.querySelectorAll('[data-ko][data-en]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        // placeholder 처리
+                        if (element.hasAttribute(`data-${lang}-placeholder`)) {
+                            element.placeholder = element.getAttribute(`data-${lang}-placeholder`);
+                        }
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            });
+        }
+
+        // 페이지 로드 시 저장된 언어 적용
+        window.addEventListener('DOMContentLoaded', () => {
+            switchLanguage(currentLang);
+        });
+
         // 부드러운 스크롤
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -450,15 +529,19 @@
         // 폼 제출 처리
         function handleSubmit(event) {
             event.preventDefault();
-            
+
             const formData = new FormData(event.target);
             const data = Object.fromEntries(formData);
-            
+
             console.log('신청 데이터:', data);
-            
-            alert('베타 테스터 신청이 완료되었습니다!\n빠른 시일 내에 연락드리겠습니다.');
+
+            const message = currentLang === 'ko'
+                ? '베타 테스터 신청이 완료되었습니다!\n빠른 시일 내에 연락드리겠습니다.'
+                : 'Beta testing application completed!\nWe will contact you soon.';
+
+            alert(message);
             event.target.reset();
-            
+
             // 실제로는 여기서 서버로 데이터 전송
             // fetch('/api/beta-signup', {
             //     method: 'POST',
