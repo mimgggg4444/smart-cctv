@@ -1,4 +1,4 @@
-streamlit run dashboard.py
+https://mimgggg4444.github.io/smart-cctv/
 
 <img width="1920" height="1381" alt="image" src="https://github.com/user-attachments/assets/f436a990-22e3-4e45-b436-5e8bc3c3b817" />
 
@@ -13,3 +13,7 @@ Option C: 카메라 기반
 3. AI 서버 수정 (사용자 구분)
 4. API 수정 (사용자 필터)
 5. 대시보드 수정 (사용자 선택)
+
+
+etc
+streamlit run dashboard.py
