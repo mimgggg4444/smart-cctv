@@ -331,12 +331,19 @@
     <nav>
         <div class="container">
             <div class="logo">🏠 SmartCare</div>
-            <ul>
-                <li><a href="#home">홈</a></li>
-                <li><a href="#solutions">솔루션</a></li>
-                <li><a href="#features">기술</a></li>
-                <li><a href="#contact">문의</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul>
+                    <li><a href="#home" data-ko="홈" data-en="Home">홈</a></li>
+                    <li><a href="#solutions" data-ko="솔루션" data-en="Solutions">솔루션</a></li>
+                    <li><a href="#features" data-ko="기술" data-en="Features">기술</a></li>
+                    <li><a href="#contact" data-ko="문의" data-en="Contact">문의</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button onclick="switchLanguage('ko')" id="lang-ko" class="active">KO</button>
+                    <span class="separator">|</span>
+                    <button onclick="switchLanguage('en')" id="lang-en">EN</button>
+                </div>
+            </div>
         </div>
     </nav>
 
