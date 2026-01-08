@@ -4,6 +4,8 @@ https://mimgggg4444.github.io/smart-cctv/
 
 <img width="1916" height="1015" alt="image" src="https://github.com/user-attachments/assets/3d2cc161-6225-48ed-8d84-650b32537b6a" />
 
+<img width="374" height="607" alt="image" src="https://github.com/user-attachments/assets/c8a0080b-deb7-4a22-a7dc-9af0201a548a" />
+
 
 1. DB 구조 변경 (사용자 구분)
 2. 사용자 식별 방법
