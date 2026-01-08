@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alice at home - AI 기반 스마트홈 솔루션</title>
+    <title>Alice at Home - 당신의 집이 생각하기 시작합니다</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,19 +15,35 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #1d1d1f;
+            background: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 스크롤 진행 바 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            z-index: 10000;
+            transition: width 0.1s ease;
         }
 
         /* 네비게이션 */
         nav {
-            background: #fff;
-            padding: 1.5rem 5%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            padding: 1rem 5%;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         nav .container {
@@ -33,209 +52,509 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+        }
+
+        nav .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
         }
 
         nav .nav-right {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
-        }
-
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2563eb;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         nav a {
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
+            color: #1d1d1f;
+            font-weight: 400;
+            font-size: 0.875rem;
+            transition: opacity 0.3s;
+            opacity: 0.8;
         }
 
         nav a:hover {
-            color: #2563eb;
+            opacity: 1;
         }
 
-        /* 언어 전환 버튼 */
+        /* 언어 전환 */
         .language-switcher {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.3rem;
             align-items: center;
         }
 
         .language-switcher button {
             background: none;
             border: none;
-            color: #666;
-            font-weight: 500;
+            color: #1d1d1f;
+            font-weight: 400;
+            font-size: 0.875rem;
             cursor: pointer;
-            padding: 0.5rem;
-            transition: color 0.3s;
+            padding: 0.4rem 0.6rem;
+            transition: opacity 0.3s;
+            opacity: 0.6;
         }
 
         .language-switcher button:hover {
-            color: #2563eb;
+            opacity: 1;
         }
 
         .language-switcher button.active {
-            color: #2563eb;
-            font-weight: bold;
+            opacity: 1;
+            font-weight: 600;
         }
 
         .language-switcher .separator {
-            color: #ccc;
+            color: #d2d2d7;
+            font-size: 0.875rem;
         }
 
         /* 히어로 섹션 */
         .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 8rem 5%;
             text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2000') center/cover;
+            opacity: 0.15;
+            animation: subtle-zoom 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtle-zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 980px;
+            padding: 0 5%;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s;
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.2rem;
+            line-height: 1.05;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
+        .hero .subtitle {
+            font-size: 1.75rem;
+            font-weight: 500;
             opacity: 0.95;
-            animation: fadeInUp 1s;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero .description {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.85;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            flex-wrap: wrap;
         }
 
         .cta-button {
             display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
+            padding: 0.9rem 2.5rem;
+            border-radius: 980px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeInUp 1.2s;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .cta-button.primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .cta-button.primary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
         }
 
         /* 섹션 공통 */
         section {
-            padding: 5rem 5%;
+            padding: 7rem 5%;
+        }
+
+        .section-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.01em;
+        }
+
+        section h2 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1d1d1f;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .section-description {
+            font-size: 1.35rem;
+            text-align: center;
+            color: #6e6e73;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* 기술 하이라이트 섹션 */
+        .tech-highlight {
+            background: #f5f5f7;
+            padding: 7rem 5%;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        section h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #1a1a1a;
+        .tech-item {
+            background: white;
+            border-radius: 28px;
+            padding: 3rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 솔루션 카드 */
+        .tech-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+
+        .tech-item h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+        }
+
+        .tech-item p {
+            font-size: 1.1rem;
+            color: #6e6e73;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-specs {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-specs li {
+            font-size: 0.95rem;
+            color: #86868b;
+            margin: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tech-specs li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* AI 기능 섹션 */
+        .ai-features {
+            background: #000;
+            color: white;
+            padding: 7rem 5%;
+        }
+
+        .ai-features h2,
+        .ai-features .section-label {
+            color: white;
+        }
+
+        .ai-features .section-description {
+            color: #a1a1a6;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ai-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 28px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ai-card:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .ai-card-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .ai-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .ai-card p {
+            font-size: 1.1rem;
+            color: #a1a1a6;
+            line-height: 1.6;
+        }
+
+        /* 케어 솔루션 섹션 */
+        .care-solutions {
+            padding: 7rem 5%;
+        }
+
         .solutions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .solution-card {
             background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .solution-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
         }
 
-        .solution-card .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .solution-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .solution-content {
+            padding: 2.5rem;
         }
 
         .solution-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.9rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: #2563eb;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
         }
 
         .solution-card p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        .solution-card ul {
-            margin-top: 1rem;
-            padding-left: 1.5rem;
-            color: #555;
-        }
-
-        .solution-card li {
-            margin: 0.5rem 0;
-        }
-
-        /* 기능 섹션 */
-        .features {
-            background: #f8f9fa;
+            font-size: 1.1rem;
+            color: #6e6e73;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
 
         .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            list-style: none;
+            padding: 0;
         }
 
-        .feature-item {
+        .feature-list li {
+            font-size: 1rem;
+            color: #86868b;
+            margin: 0.8rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 6px;
+            height: 6px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+
+        /* 스펙 비교 섹션 */
+        .specs-section {
+            background: #f5f5f7;
+            padding: 7rem 5%;
+        }
+
+        .specs-container {
+            max-width: 1000px;
+            margin: 0 auto;
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
+            border-radius: 28px;
+            padding: 4rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
         }
 
-        .feature-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: #2563eb;
+        .spec-row {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            padding: 1.8rem 0;
+            border-bottom: 1px solid #e5e5e7;
         }
 
-        /* Contact 섹션 */
-        .contact {
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .spec-value {
+            font-size: 1.05rem;
+            color: #6e6e73;
+            line-height: 1.6;
+        }
+
+        /* CTA 섹션 */
+        .final-cta {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
+            padding: 7rem 5%;
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact h2 {
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
             color: white;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
         }
 
+        .final-cta p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* 폼 */
         .contact-form {
             max-width: 600px;
-            margin: 2rem auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
 
         .form-group {
@@ -245,20 +564,23 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
+            margin-bottom: 0.6rem;
+            color: #1d1d1f;
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            border: 1.5px solid #d2d2d7;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: white;
         }
 
         .form-group input:focus,
@@ -266,6 +588,7 @@
         .form-group select:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
 
         .form-group textarea {
@@ -274,28 +597,35 @@
         }
 
         .submit-button {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 1rem 3rem;
+            padding: 1.1rem 3rem;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            border-radius: 980px;
+            font-size: 1.05rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            width: 100%;
         }
 
         .submit-button:hover {
-            background: #5568d3;
             transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
         }
 
         /* Footer */
         footer {
-            background: #1a1a1a;
-            color: white;
+            background: #f5f5f7;
+            color: #6e6e73;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 5%;
+            font-size: 0.875rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
         }
 
         /* 애니메이션 */
@@ -311,31 +641,85 @@
         }
 
         /* 반응형 */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            section h2 {
+                font-size: 2.8rem;
+            }
+
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
+            nav .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
 
-            nav ul {
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .hero .description {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 2.2rem;
+            }
+
+            .section-description {
+                font-size: 1.15rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
                 gap: 1rem;
             }
 
+            .tech-grid,
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
             section {
-                padding: 3rem 5%;
+                padding: 4rem 5%;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 스크롤 진행 바 -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <!-- 네비게이션 -->
     <nav>
         <div class="container">
-            <div class="logo">🏠 SmartCare</div>
+            <div class="logo">Alice at Home</div>
             <div class="nav-right">
                 <ul>
-                    <li><a href="#home" data-ko="홈" data-en="Home">홈</a></li>
+                    <li><a href="#home" data-ko="개요" data-en="Overview">개요</a></li>
+                    <li><a href="#tech" data-ko="기술" data-en="Technology">기술</a></li>
                     <li><a href="#solutions" data-ko="솔루션" data-en="Solutions">솔루션</a></li>
-                    <li><a href="#features" data-ko="기술" data-en="Features">기술</a></li>
+                    <li><a href="#specs" data-ko="사양" data-en="Specs">사양</a></li>
                     <li><a href="#contact" data-ko="문의" data-en="Contact">문의</a></li>
                 </ul>
                 <div class="language-switcher">
@@ -349,134 +733,276 @@
 
     <!-- 히어로 섹션 -->
     <section id="home" class="hero">
-        <h1 data-ko="AI가 지키는 스마트홈" data-en="AI-Powered Smart Home">AI가 지키는 스마트홈</h1>
-        <p data-ko="카메라 하나로 집안 환경을 자동 관리하고, 소중한 가족의 안전을 지킵니다" data-en="Automatically manage your home environment and protect your loved ones with a single camera">카메라 하나로 집안 환경을 자동 관리하고, 소중한 가족의 안전을 지킵니다</p>
-        <a href="#contact" class="cta-button" data-ko="베타 테스터 신청하기" data-en="Apply for Beta Testing">베타 테스터 신청하기</a>
+        <div class="hero-content">
+            <h1 data-ko="당신의 집이<br>생각하기 시작합니다" data-en="Your home<br>starts thinking">당신의 집이<br>생각하기 시작합니다</h1>
+            <p class="subtitle" data-ko="AI가 보고, 이해하고, 보호합니다" data-en="AI sees, understands, and protects">AI가 보고, 이해하고, 보호합니다</p>
+            <p class="description" data-ko="카메라 하나로 시작되는 스마트홈 혁명. YOLOv8과 MediaPipe가 만드는 실시간 케어 솔루션." data-en="A smart home revolution starting with a single camera. Real-time care solution powered by YOLOv8 and MediaPipe.">카메라 하나로 시작되는 스마트홈 혁명. YOLOv8과 MediaPipe가 만드는 실시간 케어 솔루션.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button primary" data-ko="베타 테스트 신청" data-en="Apply for Beta">베타 테스트 신청</a>
+                <a href="#tech" class="cta-button secondary" data-ko="기술 알아보기" data-en="Learn More">기술 알아보기</a>
+            </div>
+        </div>
     </section>
 
-    <!-- 솔루션 섹션 -->
-    <section id="solutions">
-        <h2 data-ko="핵심 솔루션" data-en="Core Solutions">핵심 솔루션</h2>
+    <!-- 기술 하이라이트 섹션 -->
+    <section id="tech" class="tech-highlight">
+        <div class="section-label" data-ko="첨단 AI 기술" data-en="CUTTING-EDGE AI">첨단 AI 기술</div>
+        <h2 data-ko="보이지 않는 곳까지<br>보는 지능" data-en="Intelligence that sees<br>the unseen">보이지 않는 곳까지<br>보는 지능</h2>
+        <p class="section-description" data-ko="최신 딥러닝 모델과 컴퓨터 비전 기술이 만나 24시간 쉬지 않고 당신의 집을 지킵니다" data-en="Latest deep learning models and computer vision technology protect your home 24/7">최신 딥러닝 모델과 컴퓨터 비전 기술이 만나 24시간 쉬지 않고 당신의 집을 지킵니다</p>
+
+        <div class="tech-grid">
+            <div class="tech-item">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=200" alt="AI Brain" class="tech-icon">
+                <h3 data-ko="YOLOv8 객체 탐지" data-en="YOLOv8 Object Detection">YOLOv8 객체 탐지</h3>
+                <p data-ko="나노 모델로 최적화된 실시간 객체 인식. Raspberry Pi 5에서도 초당 30프레임 처리가 가능합니다." data-en="Real-time object recognition optimized with nano model. Processes 30 frames per second even on Raspberry Pi 5.">나노 모델로 최적화된 실시간 객체 인식. Raspberry Pi 5에서도 초당 30프레임 처리가 가능합니다.</p>
+                <ul class="tech-specs">
+                    <li data-ko="밀리초 단위 추론 속도" data-en="Millisecond inference speed">밀리초 단위 추론 속도</li>
+                    <li data-ko="80개 이상의 일상 객체 인식" data-en="Recognizes 80+ everyday objects">80개 이상의 일상 객체 인식</li>
+                    <li data-ko="바닥 위험물 자동 감지" data-en="Automatic floor hazard detection">바닥 위험물 자동 감지</li>
+                </ul>
+            </div>
+
+            <div class="tech-item">
+                <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?q=80&w=200" alt="Human Pose" class="tech-icon">
+                <h3 data-ko="MediaPipe 포즈 추정" data-en="MediaPipe Pose Estimation">MediaPipe 포즈 추정</h3>
+                <p data-ko="Google의 최신 포즈 인식 기술로 33개 관절 포인트를 실시간 추적. 낙상부터 일상 행동까지 정확하게 분석합니다." data-en="Google's latest pose recognition technology tracks 33 joint points in real-time. Accurately analyzes everything from falls to daily activities.">Google의 최신 포즈 인식 기술로 33개 관절 포인트를 실시간 추적. 낙상부터 일상 행동까지 정확하게 분석합니다.</p>
+                <ul class="tech-specs">
+                    <li data-ko="3D 공간 좌표 추출" data-en="3D spatial coordinate extraction">3D 공간 좌표 추출</li>
+                    <li data-ko="99% 이상의 관절 탐지 정확도" data-en="Over 99% joint detection accuracy">99% 이상의 관절 탐지 정확도</li>
+                    <li data-ko="멀티 인원 동시 추적" data-en="Multi-person simultaneous tracking">멀티 인원 동시 추적</li>
+                </ul>
+            </div>
+
+            <div class="tech-item">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=200" alt="Neural Network" class="tech-icon">
+                <h3 data-ko="LSTM 시계열 분석" data-en="LSTM Time-Series Analysis">LSTM 시계열 분석</h3>
+                <p data-ko="장단기 메모리 네트워크가 행동 패턴의 시간적 변화를 학습. 급격한 변화를 감지해 위험 상황을 예측합니다." data-en="Long Short-Term Memory network learns temporal changes in behavior patterns. Predicts dangerous situations by detecting sudden changes.">장단기 메모리 네트워크가 행동 패턴의 시간적 변화를 학습. 급격한 변화를 감지해 위험 상황을 예측합니다.</p>
+                <ul class="tech-specs">
+                    <li data-ko="1초 단위 30프레임 시퀀스 분석" data-en="30-frame sequence analysis per second">1초 단위 30프레임 시퀀스 분석</li>
+                    <li data-ko="낙상 감지 정확도 85% 이상" data-en="Fall detection accuracy over 85%">낙상 감지 정확도 85% 이상</li>
+                    <li data-ko="PyTorch 기반 GPU 가속" data-en="PyTorch-based GPU acceleration">PyTorch 기반 GPU 가속</li>
+                </ul>
+            </div>
+
+            <div class="tech-item">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=200" alt="Analytics" class="tech-icon">
+                <h3 data-ko="Random Forest 행동 분류" data-en="Random Forest Activity Classification">Random Forest 행동 분류</h3>
+                <p data-ko="8가지 이상의 일상 활동을 실시간으로 분류하고 기록. 생활 패턴을 학습해 이상 징후를 조기에 발견합니다." data-en="Classifies and records 8+ daily activities in real-time. Learns lifestyle patterns to detect anomalies early.">8가지 이상의 일상 활동을 실시간으로 분류하고 기록. 생활 패턴을 학습해 이상 징후를 조기에 발견합니다.</p>
+                <ul class="tech-specs">
+                    <li data-ko="앉기, 서기, 눕기, 작업 등 분류" data-en="Classifies sitting, standing, lying, working, etc.">앉기, 서기, 눕기, 작업 등 분류</li>
+                    <li data-ko="구역별 활동 패턴 분석" data-en="Zone-based activity pattern analysis">구역별 활동 패턴 분석</li>
+                    <li data-ko="일일 생활 리포트 자동 생성" data-en="Automatic daily life report generation">일일 생활 리포트 자동 생성</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI 기능 섹션 -->
+    <section id="ai" class="ai-features">
+        <div class="section-label" data-ko="지능형 케어" data-en="INTELLIGENT CARE">지능형 케어</div>
+        <h2 data-ko="AI가 선사하는<br>안심" data-en="Peace of mind<br>powered by AI">AI가 선사하는<br>안심</h2>
+        <p class="section-description" data-ko="단순한 모니터링을 넘어, 상황을 이해하고 판단하는 진정한 인공지능 케어" data-en="Beyond simple monitoring, true AI care that understands and judges situations">단순한 모니터링을 넘어, 상황을 이해하고 판단하는 진정한 인공지능 케어</p>
+
+        <div class="ai-grid">
+            <div class="ai-card">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=100" alt="Fall Detection" class="ai-card-icon">
+                <h3 data-ko="실시간 낙상 감지" data-en="Real-time Fall Detection">실시간 낙상 감지</h3>
+                <p data-ko="포즈 분석과 시계열 데이터를 결합해 낙상을 0.5초 이내에 감지. 즉시 보호자에게 알림을 전송하고 응급 대응을 시작합니다." data-en="Detects falls within 0.5 seconds by combining pose analysis and time-series data. Immediately sends alerts to caregivers and initiates emergency response.">포즈 분석과 시계열 데이터를 결합해 낙상을 0.5초 이내에 감지. 즉시 보호자에게 알림을 전송하고 응급 대응을 시작합니다.</p>
+            </div>
+
+            <div class="ai-card">
+                <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=100" alt="Activity Monitoring" class="ai-card-icon">
+                <h3 data-ko="24시간 활동 모니터링" data-en="24/7 Activity Monitoring">24시간 활동 모니터링</h3>
+                <p data-ko="책상, 침대, 피아노 등 공간별 활동을 자동 기록. 하루 일과를 분석해 건강한 생활 리듬을 유지하도록 돕습니다." data-en="Automatically records activities in each space like desk, bed, and piano. Analyzes daily routines to help maintain healthy lifestyle rhythms.">책상, 침대, 피아노 등 공간별 활동을 자동 기록. 하루 일과를 분석해 건강한 생활 리듬을 유지하도록 돕습니다.</p>
+            </div>
+
+            <div class="ai-card">
+                <img src="https://images.unsplash.com/photo-1565277911240-6b81777d36b8?q=80&w=100" alt="Hazard Detection" class="ai-card-icon">
+                <h3 data-ko="위험 요소 자동 탐지" data-en="Automatic Hazard Detection">위험 요소 자동 탐지</h3>
+                <p data-ko="바닥에 놓인 물건, 미끄러운 표면, 장애물 등을 자동으로 인식. 사고가 일어나기 전에 미리 경고합니다." data-en="Automatically recognizes objects on the floor, slippery surfaces, and obstacles. Warns before accidents happen.">바닥에 놓인 물건, 미끄러운 표면, 장애물 등을 자동으로 인식. 사고가 일어나기 전에 미리 경고합니다.</p>
+            </div>
+
+            <div class="ai-card">
+                <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=100" alt="Privacy Protection" class="ai-card-icon">
+                <h3 data-ko="프라이버시 우선 설계" data-en="Privacy-First Design">프라이버시 우선 설계</h3>
+                <p data-ko="모든 영상 처리는 로컬 디바이스에서 진행. 클라우드로 원본 영상이 전송되지 않으며, 필요한 정보만 암호화하여 저장합니다." data-en="All video processing occurs on local devices. Original footage is never sent to the cloud, and only necessary information is encrypted and stored.">모든 영상 처리는 로컬 디바이스에서 진행. 클라우드로 원본 영상이 전송되지 않으며, 필요한 정보만 암호화하여 저장합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 케어 솔루션 섹션 -->
+    <section id="solutions" class="care-solutions">
+        <div class="section-label" data-ko="실제 적용 사례" data-en="REAL-WORLD APPLICATIONS">실제 적용 사례</div>
+        <h2 data-ko="모두를 위한<br>스마트 케어" data-en="Smart care<br>for everyone">모두를 위한<br>스마트 케어</h2>
+        <p class="section-description" data-ko="독거 어르신부터 요양 시설까지, 모든 공간에서 작동하는 지능형 케어 솔루션" data-en="Intelligent care solution that works in all spaces, from elderly living alone to care facilities">독거 어르신부터 요양 시설까지, 모든 공간에서 작동하는 지능형 케어 솔루션</p>
+
         <div class="solutions-grid">
             <div class="solution-card">
-                <div class="icon">🤖</div>
-                <h3 data-ko="스마트홈 자동화" data-en="Smart Home Automation">스마트홈 자동화</h3>
-                <p data-ko="카메라 비전 AI가 집안 상태를 실시간으로 분석하여 자동으로 제어합니다" data-en="Vision AI analyzes your home in real-time and controls devices automatically">카메라 비전 AI가 집안 상태를 실시간으로 분석하여 자동으로 제어합니다</p>
-                <ul>
-                    <li data-ko="바닥 물체 감지 → 로봇청소기 자동 작동" data-en="Floor object detection → Auto vacuum cleaning">바닥 물체 감지 → 로봇청소기 자동 작동</li>
-                    <li data-ko="창문 개폐 확인 → 냉난방 최적 제어" data-en="Window status check → Optimal HVAC control">창문 개폐 확인 → 냉난방 최적 제어</li>
-                    <li data-ko="다양한 브랜드 기기 통합 관리" data-en="Multi-brand device integration">다양한 브랜드 기기 통합 관리</li>
-                </ul>
+                <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?q=80&w=800" alt="Senior Care" class="solution-image">
+                <div class="solution-content">
+                    <h3 data-ko="독거 어르신 케어" data-en="Elderly Care at Home">독거 어르신 케어</h3>
+                    <p data-ko="혼자 사시는 부모님을 24시간 지켜드립니다. 낙상, 장시간 미활동, 비정상적인 행동 패턴을 감지하면 즉시 가족에게 알립니다." data-en="Protects parents living alone 24/7. Immediately notifies family when falls, prolonged inactivity, or abnormal behavior patterns are detected.">혼자 사시는 부모님을 24시간 지켜드립니다. 낙상, 장시간 미활동, 비정상적인 행동 패턴을 감지하면 즉시 가족에게 알립니다.</p>
+                    <ul class="feature-list">
+                        <li data-ko="낙상 및 응급 상황 즉시 감지" data-en="Immediate detection of falls and emergencies">낙상 및 응급 상황 즉시 감지</li>
+                        <li data-ko="화장실 출입 패턴 모니터링" data-en="Bathroom visit pattern monitoring">화장실 출입 패턴 모니터링</li>
+                        <li data-ko="식사, 수면 등 생활 리듬 추적" data-en="Tracks lifestyle rhythms like meals and sleep">식사, 수면 등 생활 리듬 추적</li>
+                        <li data-ko="멀티 채널 긴급 알림 (SMS, 앱, 이메일)" data-en="Multi-channel emergency alerts (SMS, app, email)">멀티 채널 긴급 알림 (SMS, 앱, 이메일)</li>
+                        <li data-ko="일일 건강 리포트 자동 전송" data-en="Automatic daily health report delivery">일일 건강 리포트 자동 전송</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="solution-card">
-                <div class="icon">👴</div>
-                <h3 data-ko="시니어 케어" data-en="Senior Care">시니어 케어</h3>
-                <p data-ko="독거 어르신과 요양 시설의 안전을 24시간 지켜드립니다" data-en="24/7 safety monitoring for elderly living alone and care facilities">독거 어르신과 요양 시설의 안전을 24시간 지켜드립니다</p>
-                <ul>
-                    <li data-ko="낙상 및 이상 행동 자동 감지" data-en="Automatic fall and abnormal behavior detection">낙상 및 이상 행동 자동 감지</li>
-                    <li data-ko="화장실 출입 패턴 모니터링" data-en="Bathroom visit pattern monitoring">화장실 출입 패턴 모니터링</li>
-                    <li data-ko="긴급 상황 시 자동 신고 시스템" data-en="Automatic emergency alert system">긴급 상황 시 자동 신고 시스템</li>
-                </ul>
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800" alt="Care Facility" class="solution-image">
+                <div class="solution-content">
+                    <h3 data-ko="요양 시설 솔루션" data-en="Care Facility Solution">요양 시설 솔루션</h3>
+                    <p data-ko="제한된 인력으로 더 많은 환자를 안전하게 케어합니다. 여러 병실을 동시에 모니터링하고 위험 상황을 우선순위로 알립니다." data-en="Safely care for more patients with limited staff. Simultaneously monitors multiple rooms and alerts prioritized by risk level.">제한된 인력으로 더 많은 환자를 안전하게 케어합니다. 여러 병실을 동시에 모니터링하고 위험 상황을 우선순위로 알립니다.</p>
+                    <ul class="feature-list">
+                        <li data-ko="최대 32개 병실 동시 모니터링" data-en="Simultaneous monitoring of up to 32 rooms">최대 32개 병실 동시 모니터링</li>
+                        <li data-ko="위험도 기반 자동 우선순위 지정" data-en="Automatic prioritization based on risk level">위험도 기반 자동 우선순위 지정</li>
+                        <li data-ko="간호사 워크스테이션 통합 대시보드" data-en="Integrated dashboard for nursing workstation">간호사 워크스테이션 통합 대시보드</li>
+                        <li data-ko="환자별 활동 기록 자동 문서화" data-en="Automatic documentation of patient activity logs">환자별 활동 기록 자동 문서화</li>
+                        <li data-ko="이상 패턴 조기 발견 및 예측" data-en="Early detection and prediction of abnormal patterns">이상 패턴 조기 발견 및 예측</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="solution-card">
-                <div class="icon">🔗</div>
-                <h3 data-ko="통합 관제" data-en="Integrated Control">통합 관제</h3>
-                <p data-ko="서로 다른 브랜드의 IoT 기기를 하나로 연결합니다" data-en="Connect IoT devices from different brands into one platform">서로 다른 브랜드의 IoT 기기를 하나로 연결합니다</p>
-                <ul>
-                    <li data-ko="LG, 삼성, 샤오미 등 브랜드 통합" data-en="Integrate LG, Samsung, Xiaomi and more">LG, 삼성, 샤오미 등 브랜드 통합</li>
-                    <li data-ko="외부에서도 실시간 모니터링" data-en="Real-time remote monitoring">외부에서도 실시간 모니터링</li>
-                    <li data-ko="자동화 시나리오 직접 설정" data-en="Customize automation scenarios">자동화 시나리오 직접 설정</li>
-                </ul>
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800" alt="Smart Home" class="solution-image">
+                <div class="solution-content">
+                    <h3 data-ko="스마트홈 통합" data-en="Smart Home Integration">스마트홈 통합</h3>
+                    <p data-ko="집안 상태를 이해하고 자동으로 IoT 기기를 제어합니다. 창문 개폐 감지로 냉난방을 조절하고, 바닥 물체 감지로 로봇청소기를 작동시킵니다." data-en="Understands home conditions and automatically controls IoT devices. Adjusts heating/cooling by detecting window status and operates robot vacuum by detecting floor objects.">집안 상태를 이해하고 자동으로 IoT 기기를 제어합니다. 창문 개폐 감지로 냉난방을 조절하고, 바닥 물체 감지로 로봇청소기를 작동시킵니다.</p>
+                    <ul class="feature-list">
+                        <li data-ko="LG ThinQ, 삼성 SmartThings 연동" data-en="Integration with LG ThinQ, Samsung SmartThings">LG ThinQ, 삼성 SmartThings 연동</li>
+                        <li data-ko="상황 인식 기반 자동화 시나리오" data-en="Context-aware automation scenarios">상황 인식 기반 자동화 시나리오</li>
+                        <li data-ko="에너지 사용 최적화" data-en="Energy usage optimization">에너지 사용 최적화</li>
+                        <li data-ko="음성 명령 없이도 작동" data-en="Operates without voice commands">음성 명령 없이도 작동</li>
+                        <li data-ko="멀티 브랜드 기기 통합 관리" data-en="Unified management of multi-brand devices">멀티 브랜드 기기 통합 관리</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 기술 섹션 -->
-    <section id="features" class="features">
-        <h2 data-ko="핵심 기술" data-en="Core Technologies">핵심 기술</h2>
-        <div class="feature-list">
-            <div class="feature-item">
-                <h4 data-ko="🎯 객체 인식 AI" data-en="🎯 Object Recognition AI">🎯 객체 인식 AI</h4>
-                <p data-ko="딥러닝 기반 실시간 영상 분석으로 바닥 물체, 인물 행동, 공간 상태를 정확하게 파악합니다" data-en="Deep learning-based real-time video analysis accurately identifies floor objects, human behavior, and spatial conditions">딥러닝 기반 실시간 영상 분석으로 바닥 물체, 인물 행동, 공간 상태를 정확하게 파악합니다</p>
+    <!-- 스펙 섹션 -->
+    <section id="specs" class="specs-section">
+        <div class="section-label" data-ko="기술 사양" data-en="TECHNICAL SPECIFICATIONS">기술 사양</div>
+        <h2 data-ko="강력한 성능<br>작은 크기" data-en="Powerful performance<br>Compact size">강력한 성능<br>작은 크기</h2>
+        <p class="section-description" data-ko="Raspberry Pi 5에서도 실시간으로 작동하는 최적화된 AI 엔진" data-en="Optimized AI engine that runs in real-time even on Raspberry Pi 5">Raspberry Pi 5에서도 실시간으로 작동하는 최적화된 AI 엔진</p>
+
+        <div class="specs-container">
+            <div class="spec-row">
+                <div class="spec-label" data-ko="AI 모델" data-en="AI Models">AI 모델</div>
+                <div class="spec-value" data-ko="YOLOv8n (객체 탐지), MediaPipe Pose (포즈 추정), Random Forest (행동 분류), LSTM (시계열 분석)" data-en="YOLOv8n (object detection), MediaPipe Pose (pose estimation), Random Forest (activity classification), LSTM (time-series analysis)">YOLOv8n (객체 탐지), MediaPipe Pose (포즈 추정), Random Forest (행동 분류), LSTM (시계열 분석)</div>
             </div>
 
-            <div class="feature-item">
-                <h4 data-ko="🔐 프라이버시 보호" data-en="🔐 Privacy Protection">🔐 프라이버시 보호</h4>
-                <p data-ko="모든 영상 처리는 로컬에서 진행되며, 필요한 정보만 암호화하여 저장합니다" data-en="All video processing is done locally, and only necessary information is encrypted and stored">모든 영상 처리는 로컬에서 진행되며, 필요한 정보만 암호화하여 저장합니다</p>
+            <div class="spec-row">
+                <div class="spec-label" data-ko="프레임워크" data-en="Frameworks">프레임워크</div>
+                <div class="spec-value" data-ko="PyTorch (GPU 가속), Ultralytics, scikit-learn, OpenCV" data-en="PyTorch (GPU acceleration), Ultralytics, scikit-learn, OpenCV">PyTorch (GPU 가속), Ultralytics, scikit-learn, OpenCV</div>
             </div>
 
-            <div class="feature-item">
-                <h4 data-ko="⚡ 실시간 자동화" data-en="⚡ Real-time Automation">⚡ 실시간 자동화</h4>
-                <p data-ko="상황 감지부터 기기 제어까지 5초 이내 처리로 즉각적인 대응이 가능합니다" data-en="Instant response with processing from situation detection to device control within 5 seconds">상황 감지부터 기기 제어까지 5초 이내 처리로 즉각적인 대응이 가능합니다</p>
+            <div class="spec-row">
+                <div class="spec-label" data-ko="처리 속도" data-en="Processing Speed">처리 속도</div>
+                <div class="spec-value" data-ko="초당 30프레임 (1080p), 추론 지연시간 33ms 이하" data-en="30 fps (1080p), inference latency under 33ms">초당 30프레임 (1080p), 추론 지연시간 33ms 이하</div>
             </div>
 
-            <div class="feature-item">
-                <h4 data-ko="🌐 멀티 브랜드 지원" data-en="🌐 Multi-brand Support">🌐 멀티 브랜드 지원</h4>
-                <p data-ko="IR 블라스터, Matter 프로토콜 등 다양한 방식으로 모든 브랜드 기기를 제어합니다" data-en="Control all brand devices through various methods including IR blaster and Matter protocol">IR 블라스터, Matter 프로토콜 등 다양한 방식으로 모든 브랜드 기기를 제어합니다</p>
+            <div class="spec-row">
+                <div class="spec-label" data-ko="지원 해상도" data-en="Supported Resolution">지원 해상도</div>
+                <div class="spec-value" data-ko="720p ~ 1080p (Full HD), 4K 입력 지원 (다운스케일)" data-en="720p ~ 1080p (Full HD), 4K input support (downscaled)">720p ~ 1080p (Full HD), 4K 입력 지원 (다운스케일)</div>
             </div>
 
-            <div class="feature-item">
-                <h4 data-ko="📱 모바일 연동" data-en="📱 Mobile Integration">📱 모바일 연동</h4>
-                <p data-ko="스마트폰 카메라를 센서로 활용하여 추가 장비 없이 시작할 수 있습니다" data-en="Get started without additional equipment by using your smartphone camera as a sensor">스마트폰 카메라를 센서로 활용하여 추가 장비 없이 시작할 수 있습니다</p>
+            <div class="spec-row">
+                <div class="spec-label" data-ko="감지 정확도" data-en="Detection Accuracy">감지 정확도</div>
+                <div class="spec-value" data-ko="객체 탐지 mAP 85%, 포즈 추정 99%, 낙상 감지 85% (개선 중)" data-en="Object detection mAP 85%, pose estimation 99%, fall detection 85% (improving)">객체 탐지 mAP 85%, 포즈 추정 99%, 낙상 감지 85% (개선 중)</div>
             </div>
 
-            <div class="feature-item">
-                <h4 data-ko="🚨 긴급 알림" data-en="🚨 Emergency Alerts">🚨 긴급 알림</h4>
-                <p data-ko="위험 상황 감지 시 보호자, 관리자, 응급기관에 즉시 알림을 전송합니다" data-en="Instantly send alerts to guardians, managers, and emergency services when dangerous situations are detected">위험 상황 감지 시 보호자, 관리자, 응급기관에 즉시 알림을 전송합니다</p>
+            <div class="spec-row">
+                <div class="spec-label" data-ko="하드웨어 요구사항" data-en="Hardware Requirements">하드웨어 요구사항</div>
+                <div class="spec-value" data-ko="Raspberry Pi 5 (4GB 이상), IP 카메라 또는 USB 웹캠, 16GB 이상 스토리지" data-en="Raspberry Pi 5 (4GB+), IP camera or USB webcam, 16GB+ storage">Raspberry Pi 5 (4GB 이상), IP 카메라 또는 USB 웹캠, 16GB 이상 스토리지</div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label" data-ko="데이터베이스" data-en="Database">데이터베이스</div>
+                <div class="spec-value" data-ko="PostgreSQL (활동 로그, 이벤트 기록)" data-en="PostgreSQL (activity logs, event records)">PostgreSQL (활동 로그, 이벤트 기록)</div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label" data-ko="통신 프로토콜" data-en="Communication Protocols">통신 프로토콜</div>
+                <div class="spec-value" data-ko="WebRTC (P2P 영상), WebSocket (실시간 알림), REST API, RTSP" data-en="WebRTC (P2P video), WebSocket (real-time alerts), REST API, RTSP">WebRTC (P2P 영상), WebSocket (실시간 알림), REST API, RTSP</div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label" data-ko="플랫폼 지원" data-en="Platform Support">플랫폼 지원</div>
+                <div class="spec-value" data-ko="Web 대시보드 (Streamlit), Flutter 앱 (iOS, Android), 네이티브 Android 앱" data-en="Web dashboard (Streamlit), Flutter app (iOS, Android), Native Android app">Web 대시보드 (Streamlit), Flutter 앱 (iOS, Android), 네이티브 Android 앱</div>
+            </div>
+
+            <div class="spec-row">
+                <div class="spec-label" data-ko="보안" data-en="Security">보안</div>
+                <div class="spec-value" data-ko="로컬 영상 처리 (클라우드 업로드 없음), AES-256 암호화, HTTPS/WSS 통신" data-en="Local video processing (no cloud upload), AES-256 encryption, HTTPS/WSS communication">로컬 영상 처리 (클라우드 업로드 없음), AES-256 암호화, HTTPS/WSS 통신</div>
             </div>
         </div>
     </section>
 
-    <!-- Contact 섹션 -->
-    <section id="contact" class="contact">
-        <h2 data-ko="베타 테스터 신청" data-en="Apply for Beta Testing">베타 테스터 신청</h2>
-        <p data-ko="첫 출시 혜택과 함께 SmartCare를 가장 먼저 경험해보세요" data-en="Be the first to experience SmartCare with exclusive early-bird benefits">첫 출시 혜택과 함께 SmartCare를 가장 먼저 경험해보세요</p>
+    <!-- 최종 CTA 섹션 -->
+    <section id="contact" class="final-cta">
+        <div class="final-cta-content">
+            <h2 data-ko="미래의 케어를<br>지금 경험하세요" data-en="Experience<br>the future of care">미래의 케어를<br>지금 경험하세요</h2>
+            <p data-ko="베타 테스터로 참여하시면 출시 혜택과 함께 Alice at Home을 가장 먼저 만나볼 수 있습니다" data-en="Join as a beta tester to be the first to experience Alice at Home with exclusive launch benefits">베타 테스터로 참여하시면 출시 혜택과 함께 Alice at Home을 가장 먼저 만나볼 수 있습니다</p>
 
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-            <div class="form-group">
-                <label for="name" data-ko="이름 *" data-en="Name *">이름 *</label>
-                <input type="text" id="name" name="name" required>
-            </div>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name" data-ko="이름 *" data-en="Name *">이름 *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-            <div class="form-group">
-                <label for="email" data-ko="이메일 *" data-en="Email *">이메일 *</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+                <div class="form-group">
+                    <label for="email" data-ko="이메일 *" data-en="Email *">이메일 *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-            <div class="form-group">
-                <label for="phone" data-ko="연락처" data-en="Phone">연락처</label>
-                <input type="tel" id="phone" name="phone">
-            </div>
+                <div class="form-group">
+                    <label for="phone" data-ko="연락처" data-en="Phone">연락처</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
 
-            <div class="form-group">
-                <label for="interest" data-ko="관심 솔루션 *" data-en="Interest *">관심 솔루션 *</label>
-                <select id="interest" name="interest" required>
-                    <option value="" data-ko="선택해주세요" data-en="Please select">선택해주세요</option>
-                    <option value="smart-home" data-ko="스마트홈 자동화" data-en="Smart Home Automation">스마트홈 자동화</option>
-                    <option value="senior-care" data-ko="시니어 케어" data-en="Senior Care">시니어 케어</option>
-                    <option value="business" data-ko="기업/시설용" data-en="Business/Facility">기업/시설용</option>
-                    <option value="all" data-ko="전체" data-en="All">전체</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="interest" data-ko="관심 분야 *" data-en="Interest *">관심 분야 *</label>
+                    <select id="interest" name="interest" required>
+                        <option value="" data-ko="선택해주세요" data-en="Please select">선택해주세요</option>
+                        <option value="elderly" data-ko="독거 어르신 케어" data-en="Elderly Care at Home">독거 어르신 케어</option>
+                        <option value="facility" data-ko="요양 시설 솔루션" data-en="Care Facility Solution">요양 시설 솔루션</option>
+                        <option value="smarthome" data-ko="스마트홈 통합" data-en="Smart Home Integration">스마트홈 통합</option>
+                        <option value="developer" data-ko="개발자/연구자" data-en="Developer/Researcher">개발자/연구자</option>
+                        <option value="all" data-ko="전체" data-en="All">전체</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="message" data-ko="문의 사항" data-en="Message">문의 사항</label>
-                <textarea id="message" name="message" data-ko-placeholder="궁금한 점이나 특별히 필요한 기능을 알려주세요" data-en-placeholder="Tell us any questions or features you need" placeholder="궁금한 점이나 특별히 필요한 기능을 알려주세요"></textarea>
-            </div>
+                <div class="form-group">
+                    <label for="message" data-ko="문의 사항" data-en="Message">문의 사항</label>
+                    <textarea id="message" name="message" placeholder=""></textarea>
+                </div>
 
-            <button type="submit" class="submit-button" data-ko="신청하기" data-en="Submit">신청하기</button>
-        </form>
+                <button type="submit" class="submit-button" data-ko="베타 테스트 신청하기" data-en="Apply for Beta Testing">베타 테스트 신청하기</button>
+            </form>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 SmartCare. All rights reserved.</p>
-        <p data-ko="AI 기반 스마트홈 솔루션 | 문의: contact@smartcare.com" data-en="AI-Powered Smart Home Solution | Contact: contact@smartcare.com">AI 기반 스마트홈 솔루션 | 문의: contact@smartcare.com</p>
+        <p>&copy; 2026 Alice at Home. All rights reserved.</p>
+        <p data-ko="AI 기반 스마트 케어 솔루션 | 문의: contact@aliceathome.ai" data-en="AI-Powered Smart Care Solution | Contact: contact@aliceathome.ai">AI 기반 스마트 케어 솔루션 | 문의: contact@aliceathome.ai</p>
     </footer>
 
     <script>
+        // 스크롤 진행 바
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scroll-progress');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = scrollPercentage + '%';
+        });
+
         // 언어 전환 함수
         let currentLang = localStorage.getItem('language') || 'ko';
 
@@ -496,12 +1022,13 @@
                 const text = element.getAttribute(`data-${lang}`);
                 if (text) {
                     if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        // placeholder 처리
                         if (element.hasAttribute(`data-${lang}-placeholder`)) {
                             element.placeholder = element.getAttribute(`data-${lang}-placeholder`);
                         }
-                    } else {
+                    } else if (element.tagName === 'OPTION') {
                         element.textContent = text;
+                    } else {
+                        element.innerHTML = text;
                     }
                 }
             });
@@ -545,6 +1072,7 @@
             // 실제로는 여기서 서버로 데이터 전송
             // fetch('/api/beta-signup', {
             //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
             //     body: JSON.stringify(data)
             // })
         }
@@ -552,7 +1080,7 @@
         // 스크롤 애니메이션
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -564,11 +1092,15 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.solution-card, .feature-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s, transform 0.6s';
-            observer.observe(el);
+        // 애니메이션 적용할 요소들
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateElements = document.querySelectorAll('.tech-item, .ai-card, .solution-card, .spec-row');
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(el);
+            });
         });
     </script>
 </body>
