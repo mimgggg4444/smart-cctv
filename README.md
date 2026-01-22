@@ -23,3 +23,4 @@ etc
 streamlit run dashboard.py
 
 카메라 -> 라즈베리파이5 + 웹캠 / 기기 만들어야함
+<img width="1920" height="6665" alt="image" src="https://github.com/user-attachments/assets/4b22fde0-5b82-407a-9b52-4c3e6cfbffa2" />
